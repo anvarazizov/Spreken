@@ -44,7 +44,7 @@ class TweetsViewController: UITableViewController, UITableViewDataSource, UITabl
             self.accountStore.requestAccessToAccountsWithType(twitterAccountType, options: nil) {
                 granted, error in
                 if granted {
-                    let twitterAccounts = self.accountStore.accountsWithAccountType(twitterAccountType) as Array<ACAccount>
+                    let twitterAccounts = self.accountStore.accountsWithAccountType(twitterAccountType) as! Array<ACAccount>
                     if twitterAccounts.count == 0 {
                         let alertView = UIAlertView(title: "No Twitter accounts found",
                                                     message: "Please add a Twitter account in Settings.",
@@ -91,7 +91,7 @@ class TweetsViewController: UITableViewController, UITableViewDataSource, UITabl
 
     // MARK: - UIActionSheetDelegate
 
-    func actionSheet(actionSheet: UIActionSheet!, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         self.account = self.accounts[buttonIndex]
         self.reloadFeed()
     }
@@ -104,7 +104,7 @@ class TweetsViewController: UITableViewController, UITableViewDataSource, UITabl
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: TweetTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("TweetTableViewCell", forIndexPath: indexPath) as TweetTableViewCell
+        let cell: TweetTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("TweetTableViewCell", forIndexPath: indexPath) as! TweetTableViewCell
         cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.width / 2
         cell.profileImageView.layer.masksToBounds = true
 

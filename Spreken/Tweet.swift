@@ -38,14 +38,14 @@ class Tweet {
             if (responseData != nil) {
                 if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
                     var jsonError: NSError?
-                    let timelineData = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments, error: &jsonError) as NSArray?
+                    let timelineData = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.AllowFragments, error: &jsonError) as! NSArray?
                     if (timelineData != nil) {
                         var tweets: Array<Tweet> = []
                         for tweetDict in timelineData! {
-                            let text = tweetDict.valueForKey("text") as String
-                            let name = tweetDict.valueForKeyPath("user.name") as String
-                            let username = tweetDict.valueForKeyPath("user.screen_name") as String
-                            let profileImageURLString = tweetDict.valueForKeyPath("user.profile_image_url") as String
+                            let text = tweetDict.valueForKey("text") as! String
+                            let name = tweetDict.valueForKeyPath("user.name") as! String
+                            let username = tweetDict.valueForKeyPath("user.screen_name") as! String
+                            let profileImageURLString = tweetDict.valueForKeyPath("user.profile_image_url") as! String
                             let twitterUser = TwitterUser(name: name, username: username, profileImageURL: NSURL(string: profileImageURLString)!)
                             let tweet = Tweet(text: text, user: twitterUser)
                             tweets.append(tweet)
